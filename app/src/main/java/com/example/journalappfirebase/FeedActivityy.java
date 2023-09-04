@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.drawable.BitmapDrawableKt;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -27,7 +29,7 @@ import java.util.ArrayList;
 
 
 public class FeedActivityy extends AppCompatActivity {
-   public static ArrayList<FeedModel> list;
+
     private FirebaseFirestore db=FirebaseFirestore.getInstance();
     EditText titleEditText,thoughtsEditText;
     Button  saveButton;
@@ -44,7 +46,6 @@ public class FeedActivityy extends AppCompatActivity {
         titleEditText=findViewById(R.id.titleEditText);
         thoughtsEditText=findViewById(R.id.thoughtsEditText);
         saveButton=findViewById(R.id.saveButton);
-        list=new ArrayList<>();
 
         postImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,9 +61,13 @@ public class FeedActivityy extends AppCompatActivity {
                 String title=titleEditText.getText().toString();
                 String thoughts=thoughtsEditText.getText().toString();
                 Bitmap bitmap=((BitmapDrawable)postImageView.getDrawable()).getBitmap();
-                Users model=new Users();
+                Intent intent=getIntent();
+
+                FeedModel model=new FeedModel();
                 model.setTitle(title);
                 model.setThoughts(thoughts);
+                model.setPassword("abcd");
+                model.setUsername( intent.getStringExtra("username"));
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                 byte[] imageData = baos.toByteArray();
@@ -70,7 +75,7 @@ public class FeedActivityy extends AppCompatActivity {
                 String base64Image = Base64.encodeToString(imageData, Base64.DEFAULT);
                 model.setImageview(base64Image);
                 db.collection("Users")
-                        .document("model")
+                        .document(title)
                         .set(model)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
@@ -79,6 +84,10 @@ public class FeedActivityy extends AppCompatActivity {
                             }
                         });
                 Intent resultIntent = new Intent();
+                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("key", title); // Replace "key" and "value" with your data
+                editor.apply();
                 setResult(RESULT_OK, resultIntent);
                 finish();
 

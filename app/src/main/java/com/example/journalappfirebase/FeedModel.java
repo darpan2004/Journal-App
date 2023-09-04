@@ -3,14 +3,32 @@ package com.example.journalappfirebase;
 import android.graphics.Bitmap;
 
 public class FeedModel{
+    String password;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     String title;
     String thoughts;
-    Bitmap imageview;
-
-    public FeedModel(String title, String thoughts, Bitmap imageview) {
+    String imageview;
+String username;
+    public FeedModel(String title, String thoughts, String imageview) {
         this.title = title;
         this.thoughts = thoughts;
         this.imageview = imageview;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public FeedModel() {
@@ -32,11 +50,11 @@ public class FeedModel{
         this.thoughts = thoughts;
     }
 
-    public Bitmap getImageview() {
+    public String getImageview() {
         return imageview;
     }
 
-    public void setImageview(Bitmap imageview) {
+    public void setImageview(String imageview) {
         this.imageview = imageview;
     }
 }

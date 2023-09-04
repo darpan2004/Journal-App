@@ -13,14 +13,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 public class JournalAdapter extends RecyclerView.Adapter<JournalAdapter.JournalViewHolder> {
-    ArrayList<Users> list;
+    ArrayList<FeedModel> list;
 
     Context context;
 
-    public JournalAdapter(ArrayList<Users> list, Context context) {
+    public JournalAdapter(ArrayList<FeedModel> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -34,7 +36,7 @@ public class JournalAdapter extends RecyclerView.Adapter<JournalAdapter.JournalV
 
     @Override
     public void onBindViewHolder(@NonNull JournalViewHolder holder, int position) {
-        Users model=list.get(position);
+        FeedModel model=list.get(position);
         holder.thoughtsTextView.setText(model.getThoughts());
         holder.titleTextView.setText(model.getTitle());
         String base64=model.getImageview();
@@ -44,7 +46,10 @@ public class JournalAdapter extends RecyclerView.Adapter<JournalAdapter.JournalV
 
 // Convert the byte array back into a Bitmap
         Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
-        holder.feedImageView.setImageBitmap(bitmap);
+        //vholder.feedImageView.setImageBitmap(bitmap);
+        Glide.with(holder.itemView.getContext())
+                .load(bitmap) // Replace 'yourBitmap' with the Bitmap you want to load
+                .into(holder.feedImageView); // Replace 'yourImageView' with the ImageView where you want to display the Bitmap
         //holder.feedImageView.setImageBitmap(model.getImageview());
 
     }

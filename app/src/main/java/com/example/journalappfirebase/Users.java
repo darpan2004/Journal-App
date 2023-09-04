@@ -39,36 +39,10 @@ public class Users {
         this.password = password;
     }
 
-    String title;
-    String thoughts;
-    String imageview;
 
 
 
 
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getThoughts() {
-        return thoughts;
-    }
-
-    public void setThoughts(String thoughts) {
-        this.thoughts = thoughts;
-    }
-
-    public String getImageview() {
-        return imageview;
-    }
-
-    public void setImageview(String imageview) {
-        this.imageview = imageview;
-    }
 }
 

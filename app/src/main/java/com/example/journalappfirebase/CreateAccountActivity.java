@@ -43,7 +43,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         user.setEmail(email);
         user.setPassword(password);
         db.collection("Users")
-                .document("user1")
+                .document(username)
                 .set(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
