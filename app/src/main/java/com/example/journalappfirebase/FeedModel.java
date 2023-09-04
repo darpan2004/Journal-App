@@ -13,6 +13,9 @@ public class FeedModel{
         this.imageview = imageview;
     }
 
+    public FeedModel() {
+    }
+
     public String getTitle() {
         return title;
     }

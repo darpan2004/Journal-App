@@ -11,11 +11,15 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.auth.User;
 
 import java.io.ByteArrayOutputStream;
@@ -24,7 +28,7 @@ import java.util.ArrayList;
 
 public class FeedActivityy extends AppCompatActivity {
    public static ArrayList<FeedModel> list;
-
+    private FirebaseFirestore db=FirebaseFirestore.getInstance();
     EditText titleEditText,thoughtsEditText;
     Button  saveButton;
     boolean importt =true;
@@ -53,18 +57,45 @@ public class FeedActivityy extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String title=titleEditText.getText().toString();
+                String thoughts=thoughtsEditText.getText().toString();
                 Bitmap bitmap=((BitmapDrawable)postImageView.getDrawable()).getBitmap();
+                Users model=new Users();
+                model.setTitle(title);
+                model.setThoughts(thoughts);
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] imageData = baos.toByteArray();
+
+                String base64Image = Base64.encodeToString(imageData, Base64.DEFAULT);
+                model.setImageview(base64Image);
+                db.collection("Users")
+                        .document("model")
+                        .set(model)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                               Toast.makeText(FeedActivityy.this, "Account Created Successfully!", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                Intent resultIntent = new Intent();
+                setResult(RESULT_OK, resultIntent);
+                finish();
+
+
                 //FeedModel model=new FeedModel(titleEditText.getText().toString(),thoughtsEditText.getText().toString(),bitmap);
            //     list.add(model);
-                Intent intent=new Intent(getApplicationContext(), UserActivity.class);
-                intent.putExtra("title",titleEditText.getText().toString());
-                intent.putExtra("thoughts",thoughtsEditText.getText().toString());
-//                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-//                byte[] byteArray = stream.toByteArray();
-//                intent.putExtra("imageBytes", byteArray);
-                intent. putExtra("BitmapImage", bitmap);
-                startActivity(intent);
+//                Intent intent=new Intent(getApplicationContext(), UserActivity.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//                intent.putExtra("title",titleEditText.getText().toString());
+//                intent.putExtra("thoughts",thoughtsEditText.getText().toString());
+////                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+////                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+////                byte[] byteArray = stream.toByteArray();
+////                intent.putExtra("imageBytes", byteArray);
+//                intent. putExtra("BitmapImage", bitmap);
+//
+//                startActivity(intent);
 
             }
         });
