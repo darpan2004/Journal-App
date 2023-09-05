@@ -48,7 +48,9 @@ public class JournalAdapter extends RecyclerView.Adapter<JournalAdapter.JournalV
         Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
         //vholder.feedImageView.setImageBitmap(bitmap);
         Glide.with(holder.itemView.getContext())
-                .load(bitmap) // Replace 'yourBitmap' with the Bitmap you want to load
+                .load(bitmap)
+                .override(100,100)
+                .centerCrop()// Replace 'yourBitmap' with the Bitmap you want to load
                 .into(holder.feedImageView); // Replace 'yourImageView' with the ImageView where you want to display the Bitmap
         //holder.feedImageView.setImageBitmap(model.getImageview());
 

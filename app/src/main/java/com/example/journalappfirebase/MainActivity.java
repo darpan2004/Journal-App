@@ -51,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String username=usernameEditText.getText().toString();
-                String password=passwordEditText.getText().toString();
+                String username=usernameEditText.getText().toString().trim();
+                String password=passwordEditText.getText().toString().trim();
 
                 if(username.equals("") || password.equals("")){
                     warningTextView.setVisibility(View.VISIBLE);
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                                     //Looping through all  the documents in collection
-                                    String data="";
+
 
                                     for(QueryDocumentSnapshot snapshots:queryDocumentSnapshots){
                                         if(snapshots.getString("username")!=null){

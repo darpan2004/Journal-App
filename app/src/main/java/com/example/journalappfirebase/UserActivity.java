@@ -44,7 +44,7 @@ public class UserActivity extends AppCompatActivity {
         userRecyclerView.setHasFixedSize(true);
         userRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         Intent intent=getIntent();
-       username= intent.getStringExtra("username");
+        username= intent.getStringExtra("username");
 
 
         collectionReference.get()
@@ -83,12 +83,12 @@ public class UserActivity extends AppCompatActivity {
 
 //        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
 //        String storedValue = sharedPreferences.getString("username", "defaultValue");
-        Toast.makeText(this, "hi"+username, Toast.LENGTH_SHORT).show();
+     //   Toast.makeText(this, "hi"+username, Toast.LENGTH_SHORT).show();
       //  loadFeed();
         feedList=new ArrayList<>();
-        for (int i = 0; i < feedList.size() ; i++) {
-            Log.i("ji",feedList.get(i).getTitle());
-        }
+//        for (int i = 0; i < feedList.size() ; i++) {
+//            L//og.i("ji",feedList.get(i).getTitle());
+//        }
         journalAdapter=new JournalAdapter(feedList,this);userRecyclerView.setAdapter(journalAdapter);
     }
 
@@ -150,7 +150,7 @@ public class UserActivity extends AppCompatActivity {
                                 model.setImageview(base64);
                                 model.setPassword("abcd");
                                 feedList.add(model);
-                                Toast.makeText(UserActivity.this, title+" , "+thoughts, Toast.LENGTH_SHORT).show();
+                               // Toast.makeText(UserActivity.this, title+" , "+thoughts, Toast.LENGTH_SHORT).show();
                                 journalAdapter.notifyDataSetChanged();
                             }
                         }

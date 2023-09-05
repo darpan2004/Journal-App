@@ -39,9 +39,9 @@ public class CreateAccountActivity extends AppCompatActivity {
         String password=passwordEditTextt.getText().toString();
         String email=emailEditTextt.getText().toString();
         Users user=new Users();
-        user.setUsername(username);
-        user.setEmail(email);
-        user.setPassword(password);
+        user.setUsername(username.trim());
+        user.setEmail(email.trim());
+        user.setPassword(password.trim());
         db.collection("Users")
                 .document(username)
                 .set(user)

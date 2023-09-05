@@ -69,7 +69,7 @@ public class FeedActivityy extends AppCompatActivity {
                 model.setPassword("abcd");
                 model.setUsername( intent.getStringExtra("username"));
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 70, baos);
                 byte[] imageData = baos.toByteArray();
 
                 String base64Image = Base64.encodeToString(imageData, Base64.DEFAULT);
@@ -80,7 +80,7 @@ public class FeedActivityy extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
-                               Toast.makeText(FeedActivityy.this, "Account Created Successfully!", Toast.LENGTH_SHORT).show();
+                            //   Toast.makeText(FeedActivityy.this, "Account Created Successfully!", Toast.LENGTH_SHORT).show();
                             }
                         });
                 Intent resultIntent = new Intent();
